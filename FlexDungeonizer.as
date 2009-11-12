@@ -1,11 +1,11 @@
 package
 {
-	import flash.display.Sprite;
+	import mx.containers.Canvas;
   import com.dungeonizer.Map;
-	public class TheDungeonizer extends Sprite
+	public class FlexDungeonizer extends Canvas
 	{
 	  public var map : Map;
-		public function TheDungeonizer()
+		public function FlexDungeonizer()
 		{
 			super();
 			map = new Map();
