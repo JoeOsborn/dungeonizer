@@ -1,7 +1,5 @@
 package com.dungeonizer
 {
-	import flash.utils.ByteArray;
-	
 	public class Map
 	{
 		public const WIDTH:int = 80;
