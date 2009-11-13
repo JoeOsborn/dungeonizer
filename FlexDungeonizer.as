@@ -1,7 +1,7 @@
 package
 {
 	import mx.containers.Canvas;
-  import com.dungeonizer.Dungeon;
+	import com.dungeonizer.Dungeon;
 	public class FlexDungeonizer extends Canvas
 	{
 	  public var dungeon : Dungeon;
