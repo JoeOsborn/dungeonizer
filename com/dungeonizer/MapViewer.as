@@ -1,7 +1,6 @@
 package com.dungeonizer
 {
 	import flash.display.MovieClip;
-
 	public class MapViewer extends MovieClip
 	{
 		public function MapViewer()
@@ -9,12 +8,12 @@ package com.dungeonizer
 			super();
 		}
 		
-		public function displayMap(map:Map){
+		public function displayMap(map:Map) : void {
 			//graphics.lineStyle(1,0x333333,1);
 			for(var i:int = 0; i < map.WIDTH; i++){
 				for(var j:int = 0; j < map.HEIGHT; j++){
-					var nx = i*10;
-					var ny = j*10;
+					var nx:Number = i*10;
+					var ny:Number = j*10;
 					graphics.moveTo(nx,ny);
 					if(map.cellAtXY(i,j) == map.FLOOR){
 						graphics.beginFill(0xFFFFFF,1);
