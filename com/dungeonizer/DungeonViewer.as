@@ -66,6 +66,7 @@ package com.dungeonizer
 			  graphics.beginFill(0xEE3333,1);
 			  graphics.drawCircle(nx, ny, ns);
 			  graphics.endFill();
+			  graphics.drawCircle(nx, ny, e.sightRadius*10);
 			}
 		}
 	}
