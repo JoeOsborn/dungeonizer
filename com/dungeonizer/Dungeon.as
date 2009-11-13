@@ -57,11 +57,11 @@ package com.dungeonizer
         trace(line);
       }
       */
-      var follower : Monster = new Monster(6.5, 7.5,  1.0,  8,  0.6, map);
+      var follower : Monster = new Monster(6.5, 7.5,  1.0,  8,  6, map);
       addEntity(follower);
       follower.setTarget(9, 2);
 
-      player = new Player(10.5, 7.5,  1.0,  0.6, map);
+      player = new Player(10.5, 7.5,  1.0,  6, map);
       addEntity(player);
       follower.setTargetEntity(player);
 

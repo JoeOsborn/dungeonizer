@@ -1,4 +1,4 @@
-MXMLC = /Applications/Adobe\ Flex\ Builder\ 3/sdks/3.2.0/bin/mxmlc
+MXMLC = mxmlc
 SRC = com/dungeonizer/DrawingCanvas.as     \
       com/dungeonizer/Dungeon.as           \
       com/dungeonizer/DungeonViewer.as     \

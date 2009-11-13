@@ -60,7 +60,7 @@ package com.dungeonizer
 	        {
 	          var dx : Number = i - pt.x;
 	          var dy : Number = j - pt.y;
-	          if(Math.sqrt(dx*dx + dy*dy) <= size+0.8) //fudge the size up a little bit to prevent corner cases
+	          if(Math.sqrt(dx*dx + dy*dy) <= size) //fudge the size up a little bit to prevent corner cases
 	          {
 	            return true;
 	          }
@@ -72,15 +72,16 @@ package com.dungeonizer
 	  public function updateVelocity(dt : Number) : void
 	  {
       //is the new position a wall? if so, only slide
-      if(wouldCollideAt(new Vec(position.x+velocity.x, position.y, position.z)))
+      var multV : Vec = velocity.multiplyScalar(dt);
+      if(velocity.x != 0 && wouldCollideAt(new Vec(position.x+multV.x, position.y, position.z)))
       {
         velocity.x = 0;
       }
-      if(wouldCollideAt(new Vec(position.x, position.y+velocity.y, position.z)))
+      if(velocity.y != 0 && wouldCollideAt(new Vec(position.x, position.y+multV.y, position.z)))
       {
         velocity.y = 0;
       }
-      if(wouldCollideAt(new Vec(position.x+velocity.x, position.y+velocity.y, position.z)))
+      if(velocity.x != 0 && velocity.y != 0 && wouldCollideAt(new Vec(position.x+multV.x, position.y+multV.y, position.z)))
       {
         velocity.x = 0;
         velocity.y = 0;

@@ -38,35 +38,35 @@ package com.dungeonizer
 			
 		}
 		
-		private function handleMouseDown(ev:MouseEvent){
+		private function handleMouseDown(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = true;
 			
 		}
-		private function handleMouseUp(ev:MouseEvent){
+		private function handleMouseUp(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = false;
 			finishShape();
 		}
-		private function handleMouseMove(ev:MouseEvent){
+		private function handleMouseMove(ev:MouseEvent) : void {
 			if(_drawing){
 				_pointBuffer.push(new Point(ev.localX, ev.localY));
 				drawBufferShape();
 			}
 		}
 		
-		private function drawBufferShape(){
+		private function drawBufferShape() : void {
 			_sketchingClip.graphics.clear();
 			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
 			_sketchingClip.graphics.lineStyle(2,0x000000,0.8);
 			_sketchingClip.graphics.beginFill(0x000000,0.2);
-			for(var i = 1; i < _pointBuffer.length; i++){
+			for(var i:int = 1; i < _pointBuffer.length; i++){
 				_sketchingClip.graphics.lineTo(_pointBuffer[i].x,_pointBuffer[i].y);
 			}
 			_sketchingClip.graphics.endFill();
 		}
 		
-		private function finishShape(){
+		private function finishShape() : void {
 			updateMap(_sketchingClip);
 			removeChild(_sketchingClip);
 			_sketchingClip = new Shape();
@@ -74,7 +74,7 @@ package com.dungeonizer
 			_pointBuffer = new Array();
 		}
 		
-		private function updateMap(mapClip:Shape){
+		private function updateMap(mapClip:Shape) : void {
 			var boundingRect:Rectangle = mapClip.getBounds(this);
 			for(var i:int = boundingRect.x-10; i< boundingRect.x+boundingRect.width+10;i+=10){
 				for(var j:int = boundingRect.y-10; j< boundingRect.y+boundingRect.height+10; j+=10){
@@ -89,7 +89,7 @@ package com.dungeonizer
 			return _map;
 		}
 		
-		public function set map(newMap:Map){
+		public function set map(newMap:Map) : void {
 			_map = newMap;
 		}
 

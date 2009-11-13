@@ -2,7 +2,6 @@ package com.dungeonizer
 {
   import flash.utils.Timer;
   import flash.events.TimerEvent;
-  import flash.events.KeyboardEvent;
 	import flash.display.MovieClip;
 	public class DungeonViewer extends MovieClip
 	{
