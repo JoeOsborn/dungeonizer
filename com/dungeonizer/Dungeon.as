@@ -16,7 +16,7 @@ package com.dungeonizer
       map = new Map();
       entities = new Array();
       lastUpdate = new Date();
-      updateTimer = new Timer(1000.0/60.0);
+      updateTimer = new Timer(1000.0/30.0);
       updateTimer.addEventListener(TimerEvent.TIMER, updateHandler);
       updateTimer.start();
     }

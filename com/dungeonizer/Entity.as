@@ -1,6 +1,5 @@
 package com.dungeonizer
 {
-  
 	public class Entity 
 	{
 	  private var size : Number;
