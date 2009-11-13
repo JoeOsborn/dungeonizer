@@ -8,7 +8,6 @@ package com.dungeonizer
 		public const WALL:uint = 0;
 		public const FLOOR:uint = 1;
 		
-		
 		protected var _cells:Array;
 		
 		public function Map()
@@ -62,23 +61,5 @@ package com.dungeonizer
 		    }
 		  }
 		}
-    public function setupEntityTest() : void
-    {
-      setBox(FLOOR, 3, 9, 3, 2);
-      setBox(FLOOR, 3, 6, 3, 2);
-      setBox(FLOOR, 1, 2, 2, 9);
-      setBox(FLOOR, 3, 2, 6, 2);
-      setBox(FLOOR, 9, 2, 2, 9);
-      for(var cy : int = 0; cy < HEIGHT; cy++)
-      {
-        var line : String = "";
-        for(var cx : int = 0; cx < WIDTH; cx++)
-        {
-          line += new String(cellAtXY(cx, cy));
-          line += " ";
-        }
-        trace(line);
-      }
-    }
 	}
 }

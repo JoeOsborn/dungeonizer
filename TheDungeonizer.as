@@ -1,15 +1,15 @@
 package
 {
 	import flash.display.Sprite;
-  import com.dungeonizer.Map;
+  import com.dungeonizer.Dungeon;
 	public class TheDungeonizer extends Sprite
 	{
-	  public var map : Map;
+	  public var dungeon : Dungeon;
 		public function TheDungeonizer()
 		{
 			super();
-			map = new Map();
-			map.setupEntityTest();
+			dungeon = new Dungeon();
+			dungeon.setupEntityTest();
 		}
 		
 	}
