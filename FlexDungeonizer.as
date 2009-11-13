@@ -2,8 +2,6 @@ package
 {
 	import mx.containers.Canvas;
 	import mx.core.UIComponent;
-  import com.dungeonizer.Dungeon;
-  import com.dungeonizer.DungeonViewer;
   
 	public class FlexDungeonizer extends Canvas
 	{

@@ -1,5 +1,6 @@
 package
 {
+	import com.dungeonizer.DrawingCanvas;
 	import com.dungeonizer.Dungeon;
 	import com.dungeonizer.DungeonViewer;
 	
@@ -9,6 +10,7 @@ package
 	{
 		public var dungeon : Dungeon;
 		private var dungeonViewer : DungeonViewer;
+		private var drawingCanvas:DrawingCanvas;
 		public function TheDungeonizer()
 		{
 			super();
@@ -16,6 +18,8 @@ package
 			dungeon.setupEntityTest();
 			dungeonViewer = new DungeonViewer(dungeon);
 			addChild(dungeonViewer);
+			drawingCanvas = new DrawingCanvas(dungeon.map);
+			addChild(drawingCanvas);
       stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
       stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
