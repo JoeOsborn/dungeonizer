@@ -2,7 +2,7 @@ package com.dungeonizer
 {
   import flash.utils.Timer;
   import flash.events.TimerEvent;
-  import flash.events.MouseEvent;
+  import flash.events.KeyboardEvent;
 	import flash.display.MovieClip;
 	public class DungeonViewer extends MovieClip
 	{
@@ -15,17 +15,12 @@ package com.dungeonizer
 			timer = new Timer(1000.0/30.0);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
       timer.start();
-			this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
-		}
-		
-		public function mouseMoveHandler(e : MouseEvent) : void
-		{
-		  dungeon.entities[1].setTarget(e.stageX / 10, e.stageY / 10);
 		}
 		
 		public function timerHandler(e : TimerEvent) : void
 		{
 		  graphics.clear();
+		  
 		  displayMap();
 		  displayEntities();
 		}
@@ -66,7 +61,11 @@ package com.dungeonizer
 			  graphics.beginFill(0xEE3333,1);
 			  graphics.drawCircle(nx, ny, ns);
 			  graphics.endFill();
-			  graphics.drawCircle(nx, ny, e.sightRadius*10);
+			  var m : Monster = e as Monster;
+			  if(m != null)
+			  {
+  			  graphics.drawCircle(nx, ny, m.sightRadius*10);
+			  }
 			}
 		}
 	}

@@ -16,7 +16,46 @@ package
 			dungeon.setupEntityTest();
 			dungeonViewer = new DungeonViewer(dungeon);
 			addChild(dungeonViewer);
+      stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+      stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
-		
+    public function keyDownHandler(e : KeyboardEvent) : void
+    {
+      if(e.keyCode == 37)
+      {
+        dungeon.player.velocity.x = -1;
+      }
+      else if(e.keyCode == 38) 
+      {
+        dungeon.player.velocity.y = -1;
+      }
+      else if(e.keyCode == 39)
+      {
+        dungeon.player.velocity.x = 1;
+      }
+      else if(e.keyCode == 40)
+      {
+        dungeon.player.velocity.y = 1;
+      }
+    }
+    public function keyUpHandler(e : KeyboardEvent) : void
+    {
+      if(e.keyCode == 37)
+      {
+        dungeon.player.velocity.x = 0;
+      }
+      else if(e.keyCode == 38) 
+      {
+        dungeon.player.velocity.y = 0;
+      }
+      else if(e.keyCode == 39)
+      {
+        dungeon.player.velocity.x = 0;
+      }
+      else if(e.keyCode == 40)
+      {
+        dungeon.player.velocity.y = 0;
+      }
+    }		
 	}
 }

@@ -7,18 +7,14 @@ package
   
 	public class FlexDungeonizer extends Canvas
 	{
-	  public var dungeon : Dungeon;
-	  private var dungeonViewer : DungeonViewer;
-	  private var dgComponent : UIComponent;
+	  private var dungeonizer : TheDungeonizer;
 		public function FlexDungeonizer()
 		{
 			super();
-			dungeon = new Dungeon();
-			dungeon.setupEntityTest();
-			dungeonViewer = new DungeonViewer(dungeon);
-      dgComponent = new UIComponent();
-      dgComponent.addChild(dungeonViewer);
-      this.addChild(dgComponent);
+			dungeonizer = new TheDungeonizer();
+			var dgComp = new UIComponent();
+			dgComp.addChild(dungeonizer);
+			addChild(dgComp);
 		}
 	}
 }

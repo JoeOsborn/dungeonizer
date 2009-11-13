@@ -7,10 +7,12 @@ package com.dungeonizer
   {
     public var map : Map;
     public var entities : Array;
+    public var player : Player;
     
     private var updateTimer : Timer;
     private var lastUpdate : Date;
     
+
     public function Dungeon()
     {
       map = new Map();
@@ -55,13 +57,13 @@ package com.dungeonizer
         trace(line);
       }
       */
-      var follower : Entity = new Entity(6.5, 7.5,  1.0,  8,  0.6, map);
+      var follower : Monster = new Monster(6.5, 7.5,  1.0,  8,  0.6, map);
       addEntity(follower);
       follower.setTarget(9, 2);
 
-      var targ : Entity = new Entity(10.5, 7.5,  1.0,  60,  0.6, map);
-      addEntity(targ);
-      follower.setTargetEntity(targ);
+      player = new Player(10.5, 7.5,  1.0,  0.6, map);
+      addEntity(player);
+      follower.setTargetEntity(player);
 
     }
     
