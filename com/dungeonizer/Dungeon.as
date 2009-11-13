@@ -29,7 +29,7 @@ package com.dungeonizer
       var dt : Number = (new Date()).time - lastUpdate.time;
       for each(var e : Entity in entities)
       {
-        trace("updating e " + e);
+        //trace("updating e " + e);
         e.update(dt/1000);
       }
       lastUpdate = new Date();
