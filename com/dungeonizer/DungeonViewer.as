@@ -2,6 +2,7 @@ package com.dungeonizer
 {
   import flash.utils.Timer;
   import flash.events.TimerEvent;
+  import flash.events.MouseEvent;
 	import flash.display.MovieClip;
 	public class DungeonViewer extends MovieClip
 	{
@@ -14,6 +15,12 @@ package com.dungeonizer
 			timer = new Timer(1000.0/30.0);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
       timer.start();
+			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+		}
+		
+		public function mouseDownHandler(e : MouseEvent) : void
+		{
+		  dungeon.entities[0].setTarget(e.stageX / 10, e.stageY / 10);
 		}
 		
 		public function timerHandler(e : TimerEvent) : void
@@ -53,8 +60,8 @@ package com.dungeonizer
 			graphics.lineStyle(1,0xEE3333,1);
 			for each (var e : Entity in dungeon.entities)
 			{
-			  var nx : Number = (e.x + 0.5) * 10;
-			  var ny : Number = (e.y + 0.5) * 10;
+			  var nx : Number = (e.x) * 10;
+			  var ny : Number = (e.y) * 10;
 			  var ns : Number = e.size * 10;
 			  graphics.beginFill(0xEE3333,1);
 			  graphics.drawCircle(nx, ny, ns);

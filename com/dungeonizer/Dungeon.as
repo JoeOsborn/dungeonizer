@@ -37,11 +37,12 @@ package com.dungeonizer
     
     public function setupEntityTest() : void
     {
-      map.setBox(map.FLOOR, 3, 9, 3, 2);
-      map.setBox(map.FLOOR, 3, 6, 3, 2);
-      map.setBox(map.FLOOR, 1, 2, 2, 9);
-      map.setBox(map.FLOOR, 3, 2, 6, 2);
-      map.setBox(map.FLOOR, 9, 2, 2, 9);
+      map.setBox(map.FLOOR, 9,27, 9, 6);
+      map.setBox(map.FLOOR, 9,18, 9, 6);
+      map.setBox(map.FLOOR, 3, 6, 6,27);
+      map.setBox(map.FLOOR, 9, 6,18, 6);
+      map.setBox(map.FLOOR,27, 6, 6,27);
+      
       /*
       for(var cy : int = 0; cy < map.HEIGHT; cy++)
       {
@@ -54,7 +55,7 @@ package com.dungeonizer
         trace(line);
       }
       */
-      var ent : Entity = new Entity(1, 2,  0.5,  4,  1.0, map);
+      var ent : Entity = new Entity(6.5, 7.5,  1.0,  4,  0.6, map);
       addEntity(ent);
       ent.setTarget(9, 2);
     }
