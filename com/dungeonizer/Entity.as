@@ -73,16 +73,37 @@ package com.dungeonizer
 	    targetEntity = e;
 	    updateTarget();
 	  }
+	  public function reachedTarget() : Boolean
+	  {
+	    if(target == null)
+	    {
+	      return true;
+	    }
+	    return position.subtract(target).magnitude() <= size;
+	  }
 	  private function updateTarget() : void
 	  {
 	    if(targetEntity != null)
 	    {
   	    setTarget(targetEntity.x, targetEntity.y);
 	    }
+	    if(wandering && reachedTarget())
+	    {
+	      wander();
+	    }
 	  }
 	  public function wander() : void
 	  {
-	    target = new Vec(x + (Math.random() - 0.5)*10, y + (Math.random() - 0.5)*10, 0);
+      for(var checks : int = 10; checks > 0; checks--)
+      {
+	      //pick a random reachable square within sight range
+	      var sx : Number = x+(Math.random()-0.5)*(sightRadius*2);
+	      var sy : Number = y+(Math.random()-0.5)*(sightRadius*2);
+	      if(!wouldCollideAt(new Vec(sx, sy, position.z)))
+	      {
+	        target = new Vec(sx, sy, 0);
+	      }
+      }
 	    wandering = true;
 	  }
 	  public function setTarget(px : Number, py : Number) : void

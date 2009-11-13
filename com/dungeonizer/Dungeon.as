@@ -55,9 +55,14 @@ package com.dungeonizer
         trace(line);
       }
       */
-      var ent : Entity = new Entity(6.5, 7.5,  1.0,  8,  0.6, map);
-      addEntity(ent);
-      ent.setTarget(9, 2);
+      var follower : Entity = new Entity(6.5, 7.5,  1.0,  8,  0.6, map);
+      addEntity(follower);
+      follower.setTarget(9, 2);
+
+      var targ : Entity = new Entity(10.5, 7.5,  1.0,  60,  0.6, map);
+      addEntity(targ);
+      follower.setTargetEntity(targ);
+
     }
     
     

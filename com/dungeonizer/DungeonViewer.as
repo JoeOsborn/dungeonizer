@@ -15,12 +15,12 @@ package com.dungeonizer
 			timer = new Timer(1000.0/30.0);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
       timer.start();
-			this.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+			this.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 		}
 		
-		public function mouseDownHandler(e : MouseEvent) : void
+		public function mouseMoveHandler(e : MouseEvent) : void
 		{
-		  dungeon.entities[0].setTarget(e.stageX / 10, e.stageY / 10);
+		  dungeon.entities[1].setTarget(e.stageX / 10, e.stageY / 10);
 		}
 		
 		public function timerHandler(e : TimerEvent) : void
