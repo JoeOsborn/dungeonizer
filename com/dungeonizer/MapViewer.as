@@ -17,9 +17,9 @@ package com.dungeonizer
 					var ny = j*10;
 					graphics.moveTo(nx,ny);
 					if(map.cellAtXY(i,j) == map.FLOOR){
-						graphics.beginFill(0x333333,1);
-					} else {
 						graphics.beginFill(0xFFFFFF,1);
+					} else {
+						graphics.beginFill(0x333333,1);
 					}
 					graphics.lineTo(nx+9,ny);
 					graphics.lineTo(nx+9,ny+9);

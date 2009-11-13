@@ -4,20 +4,20 @@ package
 	import com.dungeonizer.MapViewer;
 	
 	import flash.display.Sprite;
+	import com.dungeonizer.Dungeon;
 	public class TheDungeonizer extends Sprite
 	{
-	  public var map : Map;
-	  public var mapViewer : MapViewer;
+		public var mapViewer : MapViewer;
+		public var dungeon : Dungeon;
 		public function TheDungeonizer()
 		{
 			super();
-			map = new Map();
-			map.setupEntityTest();
+			dungeon = new Dungeon();
+			dungeon.setupEntityTest();
 			mapViewer = new MapViewer();
 			
 			addChild(mapViewer);
-			mapViewer.displayMap(map);
-			
+			mapViewer.displayMap(dungeon.map);
 		}
 		
 	}

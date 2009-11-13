@@ -1,15 +1,15 @@
 package
 {
 	import mx.containers.Canvas;
-  import com.dungeonizer.Map;
+  import com.dungeonizer.Dungeon;
 	public class FlexDungeonizer extends Canvas
 	{
-	  public var map : Map;
+	  public var dungeon : Dungeon;
 		public function FlexDungeonizer()
 		{
 			super();
-			map = new Map();
-			map.setupEntityTest();
+			dungeon = new Dungeon();
+			dungeon.setupEntityTest();
 		}
 		
 	}

@@ -1,5 +1,7 @@
 MXMLC = mxmlc
-SRC = com/dungeonizer/Map.as               \
+SRC = com/dungeonizer/Dungeon.as           \
+      com/dungeonizer/Entity.as            \
+      com/dungeonizer/Map.as               \
       FlexDungeonizer.as
 MAIN = TheDungeonizer.mxml
 SWF = TheDungeonizer.swf
