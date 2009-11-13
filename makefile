@@ -1,10 +1,14 @@
 MXMLC = /Applications/Adobe\ Flex\ Builder\ 3/sdks/3.2.0/bin/mxmlc
-SRC = com/dungeonizer/Dungeon.as           \
+SRC = com/dungeonizer/DrawingCanvas.as     \
+      com/dungeonizer/Dungeon.as           \
       com/dungeonizer/DungeonViewer.as     \
       com/dungeonizer/Entity.as            \
       com/dungeonizer/Map.as               \
+      com/dungeonizer/Monster.as           \
+      com/dungeonizer/Player.as            \
       com/dungeonizer/Vec.as               \
-      FlexDungeonizer.as
+      FlexDungeonizer.as                   \
+      TheDungeonizer.as
 MAIN = Dungeonizer.mxml
 SWF = TheDungeonizer.swf
 PLAYER = "/Applications/Adobe Flash CS4/Players/Debug/Flash Player.app"
