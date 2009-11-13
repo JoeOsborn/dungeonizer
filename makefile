@@ -1,8 +1,8 @@
 MXMLC = mxmlc
 SRC = com/dungeonizer/Dungeon.as           \
+      com/dungeonizer/DungeonViewer.as     \
       com/dungeonizer/Entity.as            \
       com/dungeonizer/Map.as               \
-      com/dungeonizer/MapViewer.as         \
       com/dungeonizer/Vec.as               \
       FlexDungeonizer.as
 MAIN = TheDungeonizer.mxml

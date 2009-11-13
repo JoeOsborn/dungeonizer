@@ -6,7 +6,7 @@ package com.dungeonizer
   public class Dungeon
   {
     public var map : Map;
-    private var entities : Array;
+    public var entities : Array;
     
     private var updateTimer : Timer;
     private var lastUpdate : Date;
@@ -54,7 +54,7 @@ package com.dungeonizer
         trace(line);
       }
       */
-      var ent : Entity = new Entity(1, 2,  2,  4,  4.0, map);
+      var ent : Entity = new Entity(1, 2,  0.5,  4,  1.0, map);
       addEntity(ent);
       ent.setTarget(9, 2);
     }

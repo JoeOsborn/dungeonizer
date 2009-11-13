@@ -2,24 +2,24 @@ package com.dungeonizer
 {
 	public class Entity 
 	{
-	  private var size : Number;
-	  private var sightRadius : Number;
+	  public var size : Number;
+	  public var sightRadius : Number;
 	  
-	  private var position : Vec;
-	  private var forward : Vec;
-	  private var side : Vec;
-	  private var up : Vec;
-	  private var velocity : Vec;
-	  private var max_force : Number;
-	  private var max_speed : Number;
+	  public var position : Vec;
+	  public var forward : Vec;
+	  public var side : Vec;
+	  public var up : Vec;
+	  public var velocity : Vec;
+	  public var max_force : Number;
+	  public var max_speed : Number;
 	  
-	  private var steering_direction : Vec;
+	  public var steering_direction : Vec;
 	  
-	  private var target : Vec;
+	  public var target : Vec;
 	  
 	  public function Entity(
 	    px : Number, py : Number, 
-	    sz : int, interestRadius : int, 
+	    sz : Number, interestRadius : Number, 
 	    speed : Number, 
 	    map : Map)
 	  {
@@ -28,7 +28,7 @@ package com.dungeonizer
 	    side = new Vec(0, 0, 1);
 	    up = new Vec(0, 1, 0);
 	    velocity = new Vec( 0,  0, 0);
-	    max_force = 1;
+	    max_force = 3.0;
 	    max_speed = speed;
 	    size = sz;
 	    sightRadius = interestRadius;
