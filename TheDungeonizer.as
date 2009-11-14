@@ -21,6 +21,7 @@ package
 			dungeon.setupEntityTest();
 			drawingCanvas = new DrawingCanvas(dungeon.map);
 			addChild(drawingCanvas);
+			drawingCanvas.drawMapState();
 			dungeonViewer = new DungeonViewer(dungeon);
 			addChild(dungeonViewer);
 			
@@ -35,12 +36,13 @@ package
 		}
 		public function addedToStageHandler(e : Event) : void
 		{
-		  trace("added");
+		  //trace("added");
       stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
       stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
     public function keyDownHandler(e : KeyboardEvent) : void
     {
+    	//trace(e.keyCode);
       if(e.keyCode == 37)
       {
         dungeon.player.movement["left"] = true;
@@ -56,6 +58,14 @@ package
       else if(e.keyCode == 40)
       {
         dungeon.player.movement["down"] = true;
+      }
+      else if(e.keyCode == 32)
+      {
+      	if(dungeonViewer.showGrid){
+      		dungeonViewer.showGrid = false;
+      	} else {
+      		dungeonViewer.showGrid = true;
+      	}
       }
     }
     public function keyUpHandler(e : KeyboardEvent) : void
@@ -88,7 +98,7 @@ package
     }
     
     private function handleMouseDown(ev:MouseEvent){
-    	trace("badger");
+    	//trace("badger");
     	drawingCanvas.handleMouseDown(ev);
     }
     private function handleMouseMove(ev:MouseEvent){
