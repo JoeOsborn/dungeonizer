@@ -23,21 +23,22 @@ package
 			addChild(drawingCanvas);
 			dungeonViewer = new DungeonViewer(dungeon);
 			addChild(dungeonViewer);
-			
+						
+  		addEventListener(flash.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+		public function addedToStageHandler(e : Event) : void
+		{
+      stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+      stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+      
+      //had to move this stuff here -- flex doesn't initialize the stage variable
+      //until a thing is added to the stage.
 			touchArea = new Sprite();
 			initTouchArea(touchArea);
 			touchArea.addEventListener(MouseEvent.MOUSE_DOWN,drawingCanvas.handleMouseDown);
 			touchArea.addEventListener(MouseEvent.MOUSE_MOVE,drawingCanvas.handleMouseMove);
 			touchArea.addEventListener(MouseEvent.MOUSE_UP,drawingCanvas.handleMouseUp);
 			addChild(touchArea);
-			
-  		addEventListener(flash.events.Event.ADDED_TO_STAGE, addedToStageHandler);
-		}
-		public function addedToStageHandler(e : Event) : void
-		{
-		  trace("added");
-      stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-      stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 		}
     public function keyDownHandler(e : KeyboardEvent) : void
     {
@@ -78,7 +79,7 @@ package
       }
     }
     
-    private function initTouchArea(area:Sprite){
+    private function initTouchArea(area:Sprite) : void {
     	area.graphics.lineStyle(1,0x000000,0);
     	area.graphics.beginFill(0x000000,0);
     	area.graphics.lineTo(stage.stageWidth,0);
@@ -87,14 +88,14 @@ package
     	area.graphics.lineTo(0,0);
     }
     
-    private function handleMouseDown(ev:MouseEvent){
+    private function handleMouseDown(ev:MouseEvent) : void {
     	trace("badger");
     	drawingCanvas.handleMouseDown(ev);
     }
-    private function handleMouseMove(ev:MouseEvent){
+    private function handleMouseMove(ev:MouseEvent) : void {
     	drawingCanvas.handleMouseMove(ev);
     }
-    private function handleMouseUp(ev:MouseEvent){
+    private function handleMouseUp(ev:MouseEvent) : void {
     	drawingCanvas.handleMouseUp(ev);
     }
  }	
