@@ -39,12 +39,12 @@ package com.dungeonizer
     
     public function setupEntityTest() : void
     {
-      map.setBox(map.FLOOR, 9,27, 9, 6);
+/*      map.setBox(map.FLOOR, 9,27, 9, 6);
       map.setBox(map.FLOOR, 9,18, 9, 6);
       map.setBox(map.FLOOR, 3, 6, 6,27);
       map.setBox(map.FLOOR, 9, 6,18, 6);
       map.setBox(map.FLOOR,27, 6, 6,27);
-      
+*/      
       /*
       for(var cy : int = 0; cy < map.HEIGHT; cy++)
       {
