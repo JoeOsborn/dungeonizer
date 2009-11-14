@@ -1,18 +1,21 @@
 package com.dungeonizer
 {
-  import flash.utils.Timer;
+  import flash.display.MovieClip;
   import flash.events.TimerEvent;
-	import flash.display.MovieClip;
+  import flash.utils.Timer;
 	public class DungeonViewer extends MovieClip
 	{
 	  private var dungeon : Dungeon;
 	  private var timer : Timer;
+	  public var showGrid : Boolean;
 		public function DungeonViewer(d : Dungeon)
 		{
 			super();
 			dungeon = d;
 			timer = new Timer(1000.0/30.0);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
+			
+			showGrid = false;
       timer.start();
 		}
 		
@@ -20,7 +23,9 @@ package com.dungeonizer
 		{
 		  graphics.clear();
 		  
-		  displayMap();
+		  if(showGrid){
+		  	displayMap();
+		  }
 		  displayEntities();
 		}
 		
@@ -37,11 +42,11 @@ package com.dungeonizer
 					graphics.moveTo(nx,ny);
 					if(map.cellAtXY(i,j) == map.FLOOR)
 					{
-						graphics.beginFill(0xFFFFFF,1);
+						graphics.beginFill(0xFFFFFF,0.3);
 					} 
 					else 
 					{
-						graphics.beginFill(0x333333,1);
+						graphics.beginFill(0x333333,0.3);
 					}
 					graphics.lineTo(nx+9,ny);
 					graphics.lineTo(nx+9,ny+9);

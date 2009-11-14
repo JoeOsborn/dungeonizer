@@ -23,11 +23,11 @@ package com.dungeonizer
 			
 			_map = map;
 			
-			addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
+			/*addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
 			addEventListener(MouseEvent.MOUSE_MOVE,handleMouseMove);
-			addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);
+			addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);*/
 			
-			graphics.beginFill(0xCCCCCC,0.2);
+			graphics.beginFill(0x333333,1.0);
 			graphics.lineTo(WIDTH,0);
 			graphics.lineTo(WIDTH,HEIGHT);
 			graphics.lineTo(0,HEIGHT);
@@ -38,17 +38,17 @@ package com.dungeonizer
 			
 		}
 		
-		private function handleMouseDown(ev:MouseEvent) : void {
+		public function handleMouseDown(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = true;
 			
 		}
-		private function handleMouseUp(ev:MouseEvent) : void {
+		public function handleMouseUp(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = false;
 			finishShape();
 		}
-		private function handleMouseMove(ev:MouseEvent) : void {
+		public function handleMouseMove(ev:MouseEvent) : void {
 			if(_drawing){
 				_pointBuffer.push(new Point(ev.localX, ev.localY));
 				drawBufferShape();
@@ -58,8 +58,8 @@ package com.dungeonizer
 		private function drawBufferShape() : void {
 			_sketchingClip.graphics.clear();
 			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
-			_sketchingClip.graphics.lineStyle(2,0x000000,0.8);
-			_sketchingClip.graphics.beginFill(0x000000,0.2);
+			_sketchingClip.graphics.lineStyle(2,0xFFFFFF,1.0);
+			_sketchingClip.graphics.beginFill(0xFFFFFF,1.0);
 			for(var i:int = 1; i < _pointBuffer.length; i++){
 				_sketchingClip.graphics.lineTo(_pointBuffer[i].x,_pointBuffer[i].y);
 			}
@@ -68,7 +68,7 @@ package com.dungeonizer
 		
 		private function finishShape() : void {
 			updateMap(_sketchingClip);
-			removeChild(_sketchingClip);
+			//removeChild(_sketchingClip);
 			_sketchingClip = new Shape();
 			addChild(_sketchingClip);
 			_pointBuffer = new Array();
