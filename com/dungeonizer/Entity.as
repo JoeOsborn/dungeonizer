@@ -60,7 +60,7 @@ package com.dungeonizer
 	        {
 	          var dx : Number = i - pt.x;
 	          var dy : Number = j - pt.y;
-	          if(Math.sqrt(dx*dx + dy*dy) <= size) //fudge the size up a little bit to prevent corner cases
+	          if(Math.sqrt(dx*dx + dy*dy) <= size + 0.8) //fudge the size up a little bit to prevent corner cases -- this may just be a problem with diagonal movement? not really sure.
 	          {
 	            return true;
 	          }
