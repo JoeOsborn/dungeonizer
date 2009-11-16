@@ -96,14 +96,15 @@ package com.dungeonizer
 		}
 		
 		private function updateMap(mapClip:Shape, erase:Boolean) : void {
+		  var tr : Number = Dungeon.TILE_RATIO;
 			var boundingRect:Rectangle = mapClip.getBounds(this);
-			for(var i:int = boundingRect.x; i<= boundingRect.x+boundingRect.width;i+=10){
-				for(var j:int = boundingRect.y; j<= boundingRect.y+boundingRect.height; j+=10){
+			for(var i:int = boundingRect.x; i<= boundingRect.x+boundingRect.width;i+=tr){
+				for(var j:int = boundingRect.y; j<= boundingRect.y+boundingRect.height; j+=tr){
 					if(mapClip.hitTestPoint(i,j,true)){
 						if(erase){
-							_map.setCellAtXY(_map.WALL,int(i/10),int(j/10));
+							_map.setCellAtXY(_map.WALL,int(i/tr),int(j/tr));
 						} else {
-							_map.setCellAtXY(_map.FLOOR,int(i/10),int(j/10));
+							_map.setCellAtXY(_map.FLOOR,int(i/tr),int(j/tr));
 						}
 					}
 				}
@@ -119,17 +120,18 @@ package com.dungeonizer
 		}
 
 		public function drawMapState(): void{
+		  var tr : Number = Dungeon.TILE_RATIO;
 			var mapShape:Shape = new Shape();
 			for(var i:int=0; i < map.WIDTH; i++){
 				for(var j:int = 0; j < map.HEIGHT; j++){
 					if(map.cellAtXY(i,j) == map.FLOOR){
 						mapShape.graphics.lineStyle(1,0xffffff,1);
-						mapShape.graphics.moveTo(i*10,j*10);
+						mapShape.graphics.moveTo(i*tr,j*tr);
 						mapShape.graphics.beginFill(0xFFFFFF,1);
-						mapShape.graphics.lineTo(i*10+10,j*10);
-						mapShape.graphics.lineTo(i*10+10,j*10+10);
-						mapShape.graphics.lineTo(i*10,j*10+10);
-						mapShape.graphics.lineTo(i*10,j*10);
+						mapShape.graphics.lineTo(i*tr+tr,j*tr);
+						mapShape.graphics.lineTo(i*tr+tr,j*tr+tr);
+						mapShape.graphics.lineTo(i*tr,j*tr+tr);
+						mapShape.graphics.lineTo(i*tr,j*tr);
 					}
 				}
 			}
