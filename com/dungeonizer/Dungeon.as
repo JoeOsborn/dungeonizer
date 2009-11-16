@@ -5,6 +5,8 @@ package com.dungeonizer
   
   public class Dungeon
   {
+    public static const TILE_RATIO : Number = 5;
+    
     public var map : Map;
     public var entities : Array;
     public var player : Player;

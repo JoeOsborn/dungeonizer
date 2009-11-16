@@ -32,13 +32,14 @@ package com.dungeonizer
 		public function displayMap() : void 
 		{
 			//graphics.lineStyle(1,0x333333,1);
+		  var tr : Number = Dungeon.TILE_RATIO;
 			var map : Map = dungeon.map;
 			for(var i:int = 0; i < map.WIDTH; i++)
 			{
 				for(var j:int = 0; j < map.HEIGHT; j++)
 				{
-					var nx:Number = i*10;
-					var ny:Number = j*10;
+					var nx:Number = i*tr;
+					var ny:Number = j*tr;
 					graphics.moveTo(nx,ny);
 					if(map.cellAtXY(i,j) == map.FLOOR)
 					{
@@ -56,19 +57,20 @@ package com.dungeonizer
 		}
 		public function displayEntities() : void 
 		{
+		  var tr : Number = Dungeon.TILE_RATIO;
 			graphics.lineStyle(1,0xEE3333,1);
 			for each (var e : Entity in dungeon.entities)
 			{
-			  var nx : Number = (e.x) * 10;
-			  var ny : Number = (e.y) * 10;
-			  var ns : Number = e.size * 10;
+			  var nx : Number = (e.x) * tr;
+			  var ny : Number = (e.y) * tr;
+			  var ns : Number = e.size * tr;
 			  graphics.beginFill(0xEE3333,1);
 			  graphics.drawCircle(nx, ny, ns);
 			  graphics.endFill();
 			  var m : Monster = e as Monster;
 			  if(m != null)
 			  {
-  			  graphics.drawCircle(nx, ny, m.sightRadius*10);
+  			  graphics.drawCircle(nx, ny, m.sightRadius*tr);
 			  }
 			}
 		}
