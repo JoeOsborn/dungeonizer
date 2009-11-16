@@ -53,24 +53,33 @@ package com.dungeonizer
 		public function handleMouseUp(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = false;
+			drawBufferShape(_erasing,true);
 			finishShape(_erasing);
 		}
 		public function handleMouseMove(ev:MouseEvent) : void {
 			if(_drawing){
 				_pointBuffer.push(new Point(ev.localX, ev.localY));
-				drawBufferShape(_erasing);
+				drawBufferShape(_erasing,false);
 			}
 		}
 		
-		private function drawBufferShape(erase:Boolean) : void {
+		private function drawBufferShape(erase:Boolean, finish:Boolean) : void {
 			_sketchingClip.graphics.clear();
 			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
 			if(erase){
-				_sketchingClip.graphics.lineStyle(2,0x333333,1.0);
-				_sketchingClip.graphics.beginFill(0x333333,1.0);
+				if(finish){
+					_sketchingClip.graphics.lineStyle(1,0x333333,1.0);
+					_sketchingClip.graphics.beginFill(0x333333,1.0);
+				} else {
+					_sketchingClip.graphics.lineStyle(2,0x000000,1.0);
+				}
 			} else {
-				_sketchingClip.graphics.lineStyle(2,0xFFFFFF,1.0);
-				_sketchingClip.graphics.beginFill(0xFFFFFF,1.0);
+				if(finish){
+					_sketchingClip.graphics.lineStyle(1,0xFFFFFF,1.0);
+					_sketchingClip.graphics.beginFill(0xFFFFFF,1.0);
+				} else {
+					_sketchingClip.graphics.lineStyle(2,0x000000,1.0);	
+				}
 			}
 			for(var i:int = 1; i < _pointBuffer.length; i++){
 				_sketchingClip.graphics.lineTo(_pointBuffer[i].x,_pointBuffer[i].y);
