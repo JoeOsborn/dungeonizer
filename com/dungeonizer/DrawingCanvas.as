@@ -72,6 +72,7 @@ package com.dungeonizer
 					_sketchingClip.graphics.beginFill(0x333333,1.0);
 				} else {
 					_sketchingClip.graphics.lineStyle(2,0x000000,1.0);
+					_sketchingClip.graphics.beginFill(0x333333,1.0);
 				}
 			} else {
 				if(finish){
