@@ -43,7 +43,7 @@ package com.dungeonizer
 		public function handleMouseDown(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = true;
-			if(ev.ctrlKey){
+			if(ev.shiftKey){
 				_erasing = true;
 			} else {
 				_erasing = false;
