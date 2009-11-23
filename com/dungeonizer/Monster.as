@@ -10,14 +10,17 @@ package com.dungeonizer
 	  public var sightRadius : Number;
 	  public var targetEntity : Entity;
 	  
-	  public function Monster(
-	    px : Number, py : Number, 
-	    sz : Number, interestRadius : Number, 
-	    speed : Number, 
-	    mp : Map)
+	  static const MONSTER_SPEED_FACTOR : Number = 0.0;
+	  static const MONSTER_MIN_SPEED : Number = 8;
+	  
+	  static const MONSTER_MIN_SIGHT : Number = 2.0;
+	  static const MONSTER_SIGHT_FACTOR : Number = 3;
+	  
+	  public function Monster(mp : Map, px : Number, py : Number, sz : Number)
 	  {
-	    super(px, py, sz, speed, mp);
-	    sightRadius = interestRadius;
+	    super(mp, px, py, sz, MONSTER_MIN_SPEED+MONSTER_SPEED_FACTOR*sz);
+	    category = Entity.CATEGORY_MONSTER;
+	    sightRadius = MONSTER_MIN_SIGHT + MONSTER_SIGHT_FACTOR * sz;
 	    targetEntity = null;
 	    steering_direction = new Vec(0, 0, 0);
 	    wander();
@@ -67,14 +70,15 @@ package com.dungeonizer
       for(var checks : int = 10; checks > 0; checks--)
       {
 	      //pick a random reachable square within sight range
-	      var sx : Number = x+(Math.random()-0.5)*(sightRadius*2);
-	      var sy : Number = y+(Math.random()-0.5)*(sightRadius*2);
+	      var sx : Number = x+(Math.random()-0.5)*(sightRadius);
+	      var sy : Number = y+(Math.random()-0.5)*(sightRadius);
 	      if(!wouldCollideAt(new Vec(sx, sy, position.z)))
 	      {
 	        target = new Vec(sx, sy, 0);
+    	    wandering = true;
+    	    break;
 	      }
       }
-	    wandering = true;
 	  }
 	  public function setTarget(px : Number, py : Number) : void
 	  {
@@ -84,7 +88,7 @@ package com.dungeonizer
 	      target = newTarget;
 	      wandering = false;
 	    }
-	    else
+	    else if(!wandering)
 	    {
 	      wander();
 	    }

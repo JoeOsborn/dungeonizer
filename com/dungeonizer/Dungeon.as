@@ -1,74 +1,1 @@
-package com.dungeonizer
-{
-  import flash.utils.Timer;
-  import flash.events.TimerEvent;
-  
-  public class Dungeon
-  {
-    public static const TILE_RATIO : Number = 5;
-    
-    public var map : Map;
-    public var entities : Array;
-    public var player : Player;
-    
-    private var updateTimer : Timer;
-    private var lastUpdate : Date;
-    
-
-    public function Dungeon()
-    {
-      map = new Map();
-      entities = new Array();
-      lastUpdate = new Date();
-      updateTimer = new Timer(1000.0/30.0);
-      updateTimer.addEventListener(TimerEvent.TIMER, updateHandler);
-      updateTimer.start();
-    }
-    public function addEntity(e : Entity) : void
-    {
-      entities.push(e);
-    }
-    private function updateHandler(t : TimerEvent) : void
-    {
-      var dt : Number = (new Date()).time - lastUpdate.time;
-      for each(var e : Entity in entities)
-      {
-        //trace("updating e " + e);
-        e.update(dt/1000);
-      }
-      lastUpdate = new Date();
-    }
-    
-    public function setupEntityTest() : void
-    {
-/*      map.setBox(map.FLOOR, 9,27, 9, 6);
-      map.setBox(map.FLOOR, 9,18, 9, 6);
-      map.setBox(map.FLOOR, 3, 6, 6,27);
-      map.setBox(map.FLOOR, 9, 6,18, 6);
-      map.setBox(map.FLOOR,27, 6, 6,27);
-*/      
-      /*
-      for(var cy : int = 0; cy < map.HEIGHT; cy++)
-      {
-        var line : String = "";
-        for(var cx : int = 0; cx < map.WIDTH; cx++)
-        {
-          line += new String(map.cellAtXY(cx, cy));
-          line += " ";
-        }
-        trace(line);
-      }
-      */
-      var follower : Monster = new Monster(6.5, 7.5,  1.0,  8,  6, map);
-      addEntity(follower);
-      follower.setTarget(9, 2);
-
-      player = new Player(10.5, 7.5,  1.0,  6, map);
-      addEntity(player);
-      follower.setTargetEntity(player);
-
-    }
-    
-    
-  }
-}
+﻿package com.dungeonizer{  import flash.utils.Timer;  import flash.events.TimerEvent;    public class Dungeon  {    public static const TILE_RATIO : Number = 5;        public var map : Map;    public var entities : Array;    public var player : Player;        private var updateTimer : Timer;    private var lastUpdate : Date;        public function Dungeon()    {      map = new Map();      entities = new Array();      lastUpdate = new Date();      updateTimer = new Timer(1000.0/30.0);      updateTimer.addEventListener(TimerEvent.TIMER, updateHandler);      updateTimer.start();    }    private function addEntity(e : Entity) : void    {      entities.push(e);      e.dungeon = this;    }    public function addMonster(m : Monster) : void    {      addEntity(m);      m.setTargetEntity(player);    }    public function slashOthers(e : Entity, st : int, a : Number, off : Number, r : Number) : void    {      var angle : Number = a;      if(angle >= (-Math.PI/4) && angle <= (Math.PI / 4))      {        angle = 0;      }      if(angle >= (Math.PI/4) && angle <= (3*Math.PI / 4))      {        angle = Math.PI/2;      }      if(angle >= (3*Math.PI / 4) && angle <= (-3*Math.PI/4))      {        angle = Math.PI;      }      if(angle >= (-3*Math.PI/4) && angle <= (-Math.PI/4))      {        angle = -Math.PI/2;      }      var scx = e.position.x + off * Math.cos(angle);      var scy = e.position.y + off * Math.sin(angle);	  trace("slashing at angle " + angle + "; x: " + scx + "; y: " + scy);      for each(var ent : Entity in entities)      {        if(ent.isSlashedBy(e, st, scx, scy, r))        {          ent.slashedBy(e, scx, scy);        }      }    }        public function closestEntity(e:Entity) : Entity    {      var minDist : Number = map.HEIGHT * map.WIDTH;      var closest : Entity = null;      for each(var ent : Entity in entities)      {        if(ent != e)        {          var distance : Number = (ent.position.subtract(e.position)).magnitude();          if(distance < minDist)          {            minDist = distance;            closest = ent;          }        }      }      return closest;    }        private function updateHandler(t : TimerEvent) : void    {      var dt : Number = (new Date()).time - lastUpdate.time;      for each(var e : Entity in entities)      {        //trace("updating e " + e);        e.update(dt/1000);      }      lastUpdate = new Date();    }        public function setupEntityTest() : void    {/*      map.setBox(map.FLOOR, 9,27, 9, 6);      map.setBox(map.FLOOR, 9,18, 9, 6);      map.setBox(map.FLOOR, 3, 6, 6,27);      map.setBox(map.FLOOR, 9, 6,18, 6);      map.setBox(map.FLOOR,27, 6, 6,27);*/            /*      for(var cy : int = 0; cy < map.HEIGHT; cy++)      {        var line : String = "";        for(var cx : int = 0; cx < map.WIDTH; cx++)        {          line += new String(map.cellAtXY(cx, cy));          line += " ";        }        trace(line);      }      */      map.setBox(map.FLOOR, 5, 50, 20, 20);      map.setBox(map.FLOOR, 135, 50, 20, 20);      player = new Player(map, 10, 60);      addEntity(player);      var follower : Monster = new Monster(map, 15, 60,  2.0);      addMonster(follower);    }          }}

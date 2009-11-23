@@ -1,52 +1,1 @@
-package com.dungeonizer
-{
-	public class Player extends Entity
-	{
-	  public var movement : Object;
-	  public function Player(
-	    px : Number, py : Number, 
-	    sz : Number, speed : Number, 
-	    mp : Map)
-	  {
-	    super(px, py, sz, speed, mp);
-	    movement = {"left":false, "right":false, "up":false, "down":false};
-	  }
-	  public override function updateVelocity(dt : Number) : void
-	  {
-      //left vs up vs right vs down
-      if(movement["left"] && movement["right"])
-      {
-        velocity.x = 0;
-      }
-      else if(movement["left"])
-      {
-        velocity.x = -max_speed;
-      }
-      else if(movement["right"])
-      {        
-        velocity.x = max_speed;
-      }
-      else
-      {
-        velocity.x = 0;
-      }
-      if(movement["up"] && movement["down"])
-      {
-        velocity.y = 0;
-      }
-      else if(movement["up"])
-      {
-        velocity.y = -max_speed;
-      }
-      else if(movement["down"])
-      {
-        velocity.y = max_speed;
-      }
-      else
-      {
-        velocity.y = 0;
-      }
-	    super.updateVelocity(dt);
-	  }
-	}
-}
+﻿package com.dungeonizer{	public class Player extends Entity	{	  public var movement : Object;	  static const PLAYER_SIZE : Number = 1.0;	  static const PLAYER_SPEED : Number = 7;	  	  static const SLASH_DURATION : Number = 0.5;	  static const SLASH_HURT_START : Number = 0.3;	  static const SLASH_HURT_END : Number = 0.2;	  static const SLASH_RADIUS : Number = 1.0;	  static const SLASH_DISTANCE : Number = PLAYER_SIZE;	  	  private var _slashRequested : Boolean;	  private var _slashPerformed : Boolean;	  private var _slashType : int;	  private var _slashTimer : Number;	  	  public function get slashing() : Boolean	  {	    return _slashRequested;	  }	  public function set slashing(v : Boolean) : void	  {	    _slashRequested = v;	  	  }	  	  public function Player(	    mp : Map,	    px : Number, py : Number)	  {	    super(mp, px, py, PLAYER_SIZE, PLAYER_SPEED);	    category = Entity.CATEGORY_PLAYER;	    movement = {"left":false, "right":false, "up":false, "down":false};	    _slashRequested = false;		_slashTimer = 0;	  }	  public override function updateVelocity(dt : Number) : void	  {      //left vs up vs right vs down      if(movement["left"] && movement["right"])      {        velocity.x = 0;      }      else if(movement["left"])      {        velocity.x = -max_speed;      }      else if(movement["right"])      {                velocity.x = max_speed;      }      else      {        velocity.x = 0;      }      if(movement["up"] && movement["down"])      {        velocity.y = 0;      }      else if(movement["up"])      {        velocity.y = -max_speed;      }      else if(movement["down"])      {        velocity.y = max_speed;      }      else      {        velocity.y = 0;      }	    if(!_slashRequested)	    {	      _slashPerformed = false;	    }      if(_slashRequested && !_slashPerformed)      {        //start slashing        _slashPerformed = true;	      _slashTimer = SLASH_DURATION;	      var closest : Entity = dungeon.closestEntity(this);	      if(closest.category == Entity.CATEGORY_PRINCESS)	      {	        _slashType = Entity.CATEGORY_PRINCESS;	        //play animation	      }	      else if(closest.category == Entity.CATEGORY_MONSTER)	      {	        _slashType = Entity.CATEGORY_MONSTER;	        //play animation	      }	      else	      {	        _slashType = Entity.CATEGORY_NONE;	        //play animation	      }      }      if(_slashTimer > 0)      {        _slashTimer -= dt;        if(_slashTimer < SLASH_HURT_START && _slashTimer > SLASH_HURT_END)        {          var angle : Number = forward.to_angle();          dungeon.slashOthers(this, _slashType, angle, SLASH_DISTANCE, SLASH_RADIUS);        }      }	    super.updateVelocity(dt);	  }	}}
