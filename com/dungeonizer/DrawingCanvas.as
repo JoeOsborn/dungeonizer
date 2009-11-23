@@ -14,8 +14,11 @@ package com.dungeonizer
 		private var _drawing:Boolean;
 		private var _erasing:Boolean;
 		private var _sketchingClip:Shape;
+		private var _dungeon:Dungeon;
 		private var _map:Map;
-		public function DrawingCanvas(map:Map)
+		private var _ui:DrawingCanvasUI;
+		
+		public function DrawingCanvas(dungeon:Dungeon)
 		{
 			
 			_pointBuffer = new Array();
@@ -23,11 +26,14 @@ package com.dungeonizer
 			_erasing = false;
 			_sketchingClip = new Shape();
 			
-			_map = map;
+			_dungeon = dungeon;
+			_map = dungeon.map;
 			
-			/*addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
-			addEventListener(MouseEvent.MOUSE_MOVE,handleMouseMove);
-			addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);*/
+			_ui = new DrawingCanvasUI();
+			_ui.x = WIDTH/2 - _ui.width/2;
+			_ui.y = HEIGHT - _ui.height;
+			addChild(_ui);
+			
 			
 			graphics.beginFill(0x333333,1.0);
 			graphics.lineTo(WIDTH,0);
@@ -37,29 +43,45 @@ package com.dungeonizer
 			addChild(_sketchingClip);
 			this.cacheAsBitmap = true;
 			
-			
 		}
 		
 		public function handleMouseDown(ev:MouseEvent) : void {
-			_pointBuffer.push(new Point(ev.localX, ev.localY));
-			_drawing = true;
-			if(ev.shiftKey){
-				_erasing = true;
+			if(_ui.hitTestPoint(ev.localX,ev.localY,true)){
+				_ui.handleMouseDown(ev);
 			} else {
-				_erasing = false;
+				_pointBuffer.push(new Point(ev.localX, ev.localY));
+				_drawing = true;
 			}
 			
 		}
 		public function handleMouseUp(ev:MouseEvent) : void {
 			_pointBuffer.push(new Point(ev.localX, ev.localY));
 			_drawing = false;
-			drawBufferShape(_erasing,true);
-			finishShape(_erasing);
+			if(_ui.activePallet == DrawingCanvasUI.FLOOR){
+				drawFloorShape();
+				updateMap(_sketchingClip, false);
+				finishShape();
+				
+			} else if(_ui.activePallet == DrawingCanvasUI.WALL){
+				drawWallShape();
+				updateMap(_sketchingClip, true);
+				finishShape();
+			} else {
+				drawColorShape(getColor());
+				finishShape();
+			}
 		}
+		
 		public function handleMouseMove(ev:MouseEvent) : void {
 			if(_drawing){
 				_pointBuffer.push(new Point(ev.localX, ev.localY));
-				drawBufferShape(_erasing,false);
+				if(_ui.activePallet == DrawingCanvasUI.FLOOR){
+					drawColorShape(0x000000);
+				} else if(_ui.activePallet == DrawingCanvasUI.WALL){
+					drawColorShape(0x000000);
+				} else {
+					drawColorShape(getColor());
+				}
 			}
 		}
 		
@@ -88,12 +110,42 @@ package com.dungeonizer
 			_sketchingClip.graphics.endFill();
 		}
 		
-		private function finishShape(erase:Boolean) : void {
-			updateMap(_sketchingClip, erase);
-			//removeChild(_sketchingClip);
+		private function drawFloorShape(){
+			_sketchingClip.graphics.clear();
+			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
+			_sketchingClip.graphics.lineStyle(1,0xFFFFFF,1.0);
+			_sketchingClip.graphics.beginFill(0xFFFFFF,1.0);
+			drawShape();
+			_sketchingClip.graphics.endFill()
+		}
+		
+		private function drawWallShape(){
+			_sketchingClip.graphics.clear();
+			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
+			_sketchingClip.graphics.lineStyle(1,0x333333,1.0);
+			_sketchingClip.graphics.beginFill(0x333333,1.0);
+			drawShape();
+			_sketchingClip.graphics.endFill()
+		}
+		
+		private function drawColorShape(color:uint){
+			_sketchingClip.graphics.clear();
+			_sketchingClip.graphics.lineStyle(2,color,1);
+			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
+			drawShape();
+		}
+		
+		private function finishShape() : void {
 			_sketchingClip = new Shape();
 			addChild(_sketchingClip);
 			_pointBuffer = new Array();
+		}
+		
+		
+		private function drawShape(){
+			for(var i:int = 1; i < _pointBuffer.length; i++){
+				_sketchingClip.graphics.lineTo(_pointBuffer[i].x,_pointBuffer[i].y);
+			}
 		}
 		
 		private function updateMap(mapClip:Shape, erase:Boolean) : void {
@@ -137,7 +189,21 @@ package com.dungeonizer
 				}
 			}
 			addChild(mapShape);
-			
 		}
+		
+		private function getColor():uint{
+			var ret = 0x000000;
+			if(_ui.activePallet == DrawingCanvasUI.BLACK){
+				ret = 0x000000;
+			} else if (_ui.activePallet == DrawingCanvasUI.BLUE){
+				ret = 0x000099;
+			} else if (_ui.activePallet == DrawingCanvasUI.RED){
+				ret = 0x990000;
+			}  else if (_ui.activePallet == DrawingCanvasUI.GREEN){
+				ret = 0x009900;
+			}
+			return ret;
+		}
+		
 	}
 }
