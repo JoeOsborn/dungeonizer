@@ -4,12 +4,12 @@ package
 	import com.dungeonizer.Dungeon;
 	import com.dungeonizer.DungeonViewer;
 	
-	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.*;
 
 	public class TheDungeonizer extends Sprite
 	{
+		
 		public var dungeon : Dungeon;
 		private var dungeonViewer : DungeonViewer;
 		private var drawingCanvas:DrawingCanvas;
@@ -19,11 +19,13 @@ package
 			super();
 			dungeon = new Dungeon();
 			dungeon.setupEntityTest();
-			drawingCanvas = new DrawingCanvas(dungeon.map);
+			drawingCanvas = new DrawingCanvas(dungeon);
 			addChild(drawingCanvas);
 			drawingCanvas.drawMapState();
 			dungeonViewer = new DungeonViewer(dungeon);
 			addChild(dungeonViewer);
+			
+			
 						
   		addEventListener(flash.events.Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
