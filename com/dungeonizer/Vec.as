@@ -11,6 +11,10 @@ package com.dungeonizer
       y = vy;
       z = vz;
     }
+    public function to_angle() : Number
+    {
+      return Math.atan2(y, x);
+    }
     public function truncate(maxVal : Number) : Vec
     {
       return new Vec(Math.min(x, maxVal), Math.min(y, maxVal), Math.min(z, maxVal));

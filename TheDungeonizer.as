@@ -31,8 +31,8 @@ package
 		}
 		public function addedToStageHandler(e : Event) : void
 		{
-      		stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-      		stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
+      stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+      stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
       
       //had to move this stuff here -- flex doesn't initialize the stage variable
       //until a thing is added to the stage.
@@ -64,10 +64,14 @@ package
       }
       else if(e.keyCode == 32)
       {
-      	if(dungeonViewer.showGrid){
-      		dungeonViewer.showGrid = false;
-      	} else {
-      		dungeonViewer.showGrid = true;
+      	/*if(dungeonViewer.showGrid){
+      	         dungeonViewer.showGrid = false;
+      	       } else {
+      	         dungeonViewer.showGrid = true;
+      	       }*/
+      	if(!dungeon.player.slashing)
+      	{
+      	  dungeon.player.slashing = true;
       	}
       }
     }
@@ -88,6 +92,13 @@ package
       else if(e.keyCode == 40)
       {
         dungeon.player.movement["down"] = false;
+      }
+      else if(e.keyCode == 32)
+      {
+        if(dungeon.player.slashing)
+      	{
+      	  dungeon.player.slashing = false;
+      	}
       }
     }
     
