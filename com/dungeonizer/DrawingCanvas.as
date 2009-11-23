@@ -31,7 +31,7 @@ package com.dungeonizer
 			
 			_ui = new DrawingCanvasUI();
 			_ui.x = WIDTH/2 - _ui.width/2;
-			_ui.y = HEIGHT - _ui.height;
+			_ui.y = HEIGHT + 20;
 			addChild(_ui);
 			
 			
@@ -60,12 +60,17 @@ package com.dungeonizer
 			if(_ui.activePallet == DrawingCanvasUI.FLOOR){
 				drawFloorShape();
 				updateMap(_sketchingClip, false);
-				finishShape();
-				
+				finishShape();				
 			} else if(_ui.activePallet == DrawingCanvasUI.WALL){
 				drawWallShape();
 				updateMap(_sketchingClip, true);
 				finishShape();
+			} else if(_ui.activePallet == DrawingCanvasUI.MONSTER){
+				_sketchingClip.graphics.clear();
+				addMonster();
+			} else if(_ui.activePallet == DrawingCanvasUI.PRINCESS){
+				_sketchingClip.graphics.clear();
+				addPrincess();
 			} else {
 				drawColorShape(getColor());
 				finishShape();
@@ -205,5 +210,12 @@ package com.dungeonizer
 			return ret;
 		}
 		
+		private function addMonster(){
+
+		}
+		
+		private function addPrincess(){
+			
+		}
 	}
 }
