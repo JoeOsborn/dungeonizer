@@ -11,7 +11,7 @@ package com.dungeonizer
       y = vy;
       z = vz;
     }
-    public function to_angle() : Number
+    public function toAngle() : Number
     {
       return Math.atan2(y, x);
     }

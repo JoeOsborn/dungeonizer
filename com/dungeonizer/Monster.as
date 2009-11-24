@@ -121,6 +121,7 @@ package com.dungeonizer
 	  public override function update(dt : Number) : void
 	  {
 	    updateTarget();
+	    dungeon.slashOthers(this, Entity.CATEGORY_PLAYER, 0, size);
       super.update(dt);
 	  }
 
