@@ -34,9 +34,9 @@ package com.dungeonizer
 			//graphics.lineStyle(1,0x333333,1);
 		  var tr : Number = Dungeon.TILE_RATIO;
 			var map : Map = dungeon.map;
-			for(var i:int = 0; i < map.WIDTH; i++)
+			for(var i:int = 0; i < Map.WIDTH; i++)
 			{
-				for(var j:int = 0; j < map.HEIGHT; j++)
+				for(var j:int = 0; j < Map.HEIGHT; j++)
 				{
 					var nx:Number = i*tr;
 					var ny:Number = j*tr;

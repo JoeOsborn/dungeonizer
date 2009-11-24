@@ -46,40 +46,45 @@ package com.dungeonizer
 		}
 		
 		public function handleMouseDown(ev:MouseEvent) : void {
-			if(_ui.hitTestPoint(ev.localX,ev.localY,true)){
+			if(ev.localY > HEIGHT){
 				_ui.handleMouseDown(ev);
 			} else {
-				_pointBuffer.push(new Point(ev.localX, ev.localY));
+				addBufferPoint(ev.localX, ev.localY);
 				_drawing = true;
 			}
 			
 		}
 		public function handleMouseUp(ev:MouseEvent) : void {
-			_pointBuffer.push(new Point(ev.localX, ev.localY));
-			_drawing = false;
-			if(_ui.activePallet == DrawingCanvasUI.FLOOR){
-				drawFloorShape();
-				updateMap(_sketchingClip, false);
-				finishShape();				
-			} else if(_ui.activePallet == DrawingCanvasUI.WALL){
-				drawWallShape();
-				updateMap(_sketchingClip, true);
-				finishShape();
-			} else if(_ui.activePallet == DrawingCanvasUI.MONSTER){
-				_sketchingClip.graphics.clear();
-				addMonster();
-			} else if(_ui.activePallet == DrawingCanvasUI.PRINCESS){
-				_sketchingClip.graphics.clear();
-				addPrincess();
-			} else {
-				drawColorShape(getColor());
-				finishShape();
+			if(_drawing){
+				addBufferPoint(ev.localX, ev.localY);
+				_drawing = false;
+				if(_ui.activePallet == DrawingCanvasUI.FLOOR){
+					drawFloorShape();
+					updateMap(_sketchingClip, false);
+					finishShape();				
+				} else if(_ui.activePallet == DrawingCanvasUI.WALL){
+					drawWallShape();
+					updateMap(_sketchingClip, true);
+					finishShape();
+				} else if(_ui.activePallet == DrawingCanvasUI.MONSTER){
+					addMonster();
+					_sketchingClip.graphics.clear();
+					
+					finishShape();
+				} else if(_ui.activePallet == DrawingCanvasUI.PRINCESS){
+					_sketchingClip.graphics.clear();
+					addPrincess();
+					finishShape();
+				} else {
+					drawColorShape(getColor());
+					finishShape();
+				}
 			}
 		}
 		
 		public function handleMouseMove(ev:MouseEvent) : void {
 			if(_drawing){
-				_pointBuffer.push(new Point(ev.localX, ev.localY));
+				addBufferPoint(ev.localX, ev.localY);
 				if(_ui.activePallet == DrawingCanvasUI.FLOOR){
 					drawColorShape(0x000000);
 				} else if(_ui.activePallet == DrawingCanvasUI.WALL){
@@ -90,6 +95,22 @@ package com.dungeonizer
 			}
 		}
 		
+		private function addBufferPoint(px,py){
+			
+			if(px > WIDTH){
+				px = WIDTH;
+			} else if(px < 0){
+				px = 0;
+			}
+			
+			if(py > HEIGHT){
+				py = HEIGHT;
+			} else if(py < 0){
+				py = 0;
+			}
+			//trace("adding point: "+px+" "+py);
+			_pointBuffer.push(new Point(px,py));
+		}
 		private function drawBufferShape(erase:Boolean, finish:Boolean) : void {
 			_sketchingClip.graphics.clear();
 			_sketchingClip.graphics.moveTo(_pointBuffer[0].x, _pointBuffer[0].y);
@@ -180,8 +201,8 @@ package com.dungeonizer
 		public function drawMapState(): void{
 		  var tr : Number = Dungeon.TILE_RATIO;
 			var mapShape:Shape = new Shape();
-			for(var i:int=0; i < map.WIDTH; i++){
-				for(var j:int = 0; j < map.HEIGHT; j++){
+			for(var i:int=0; i < Map.WIDTH; i++){
+				for(var j:int = 0; j < Map.HEIGHT; j++){
 					if(map.cellAtXY(i,j) == map.FLOOR){
 						mapShape.graphics.lineStyle(1,0xffffff,1);
 						mapShape.graphics.moveTo(i*tr,j*tr);
@@ -211,7 +232,20 @@ package com.dungeonizer
 		}
 		
 		private function addMonster(){
-
+			
+			var boundingRect:Rectangle = _sketchingClip.getBounds(this);
+			var cellWidth = WIDTH / Map.WIDTH;
+			var cellHeight = HEIGHT / Map.HEIGHT;
+			
+			var size = int((boundingRect.width/cellWidth + boundingRect.height / cellHeight) / 4);
+			var mx = int((boundingRect.x + boundingRect.width/2) / cellWidth);
+			var my = int((boundingRect.y + boundingRect.height/2) / cellHeight);
+			if(size > 12){
+				size = 12;
+			}
+			var monster:Monster = new Monster(_dungeon.map,mx,my,size);
+			_dungeon.addMonster(monster);
+			
 		}
 		
 		private function addPrincess(){
