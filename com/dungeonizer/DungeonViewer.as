@@ -78,10 +78,39 @@ package com.dungeonizer
 			}*/
 			for each (var v : EntityViewer in viewers)
 			{
-				var nx : Number = (v.entity.x) * tr;
-			 	var ny : Number = (v.entity.y) * tr;
-			 	v.clip.x = nx;
-			 	v.clip.y = ny;
+				if(v.entity == null || v.entity.dead){
+					if(v.clip.parent != null){
+						v.clip.parent.removeChild(v.clip);
+					}
+				} else {
+					var nx : Number = (v.entity.x) * tr;
+				 	var ny : Number = (v.entity.y) * tr;
+				 	v.clip.x = nx;
+				 	v.clip.y = ny;
+				 	var p:Player = v.entity as Player;
+				 	if(p != null){
+				 		if(p.slashing){
+				 			var angle = p.facing;
+				 			var sx =Math.cos(angle)*20;
+				 			var sy =Math.sin(angle)*20;
+				 			var slashClip:MovieClip;
+				 			if(p._slashType == Entity.CATEGORY_PRINCESS){
+				 				slashClip = new FlowerClip();
+				 			} else {
+				 				slashClip = new SwordClip();
+				 			} 
+				 			slashClip.x = sx;
+				 			slashClip.y = sy;
+				 			if(sy > 0){
+				 				slashClip.scaleY = -1;
+				 			}
+				 			if (sx < 0){
+				 				slashClip.scaleX = -1;
+				 			}
+				 			v.clip.addChild(slashClip);
+				 		}
+				 	}
+				}
 			}
 		}
 		

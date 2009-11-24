@@ -73,11 +73,10 @@ package com.dungeonizer
 				} else if(_ui.activePallet == DrawingCanvasUI.MONSTER){
 					addMonster();
 					_sketchingClip.graphics.clear();
-					
 					finishShape();
 				} else if(_ui.activePallet == DrawingCanvasUI.PRINCESS){
-					_sketchingClip.graphics.clear();
 					addPrincess();
+					_sketchingClip.graphics.clear();
 					finishShape();
 				} else {
 					drawColorShape(getColor());
@@ -249,14 +248,32 @@ package com.dungeonizer
 			}
 			var monster:Monster = new Monster(_dungeon.map,mx,my,size);
 			_dungeon.addMonster(monster);
-			var viewerClip:MovieClip = new HeroClip();
+			var viewerClip:MovieClip = new MonsterClip();
+			viewerClip.scaleX *= size;
+			viewerClip.scaleY *= size;
 			var viewer:EntityViewer = new EntityViewer(monster,viewerClip);
 			_dungeonViewer.addEntityViewer(viewer);
 			
 		}
 		
 		private function addPrincess(){
+			var boundingRect:Rectangle = _sketchingClip.getBounds(this);
+			var cellWidth = WIDTH / Map.WIDTH;
+			var cellHeight = HEIGHT / Map.HEIGHT;
 			
+			var size = int((boundingRect.width/cellWidth + boundingRect.height / cellHeight) / 4);
+			var mx = int((boundingRect.x + boundingRect.width/2) / cellWidth);
+			var my = int((boundingRect.y + boundingRect.height/2) / cellHeight);
+			if(size > 12){
+				size = 12;
+			}
+			var princess:Princess = new Princess(_dungeon.map,mx,my,size);
+			_dungeon.addEntity(princess);
+			var viewerClip:MovieClip = new PrincessClip();
+			viewerClip.scaleX *= size;
+			viewerClip.scaleY *= size;
+			var viewer:EntityViewer = new EntityViewer(princess,viewerClip);
+			_dungeonViewer.addEntityViewer(viewer);
 		}
 	}
 }
