@@ -37,9 +37,9 @@ package com.dungeonizer
 	  {
 	    if(wandering)
 	    {
-	      return 5.0;
+	      return 20.0;
 	    }
-	    return 10.0;
+	    return 40.0;
 	  }
 	  public function setTargetEntity(e : Entity) : void
 	  {
