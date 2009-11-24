@@ -7,6 +7,7 @@ package com.dungeonizer
 	{
 	  private var dungeon : Dungeon;
 	  private var timer : Timer;
+	  private var viewers:Array;
 	  public var showGrid : Boolean;
 		public function DungeonViewer(d : Dungeon)
 		{
@@ -16,7 +17,9 @@ package com.dungeonizer
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
 			
 			showGrid = false;
-      timer.start();
+     		 timer.start();
+     		 
+     		 viewers = new Array();
 		}
 		
 		public function timerHandler(e : TimerEvent) : void
@@ -59,7 +62,7 @@ package com.dungeonizer
 		{
 		  var tr : Number = Dungeon.TILE_RATIO;
 			graphics.lineStyle(1,0xEE3333,1);
-			for each (var e : Entity in dungeon.entities)
+			/*for each (var e : Entity in dungeon.entities)
 			{
 			  var nx : Number = (e.x) * tr;
 			  var ny : Number = (e.y) * tr;
@@ -72,7 +75,19 @@ package com.dungeonizer
 			  {
   			  graphics.drawCircle(nx, ny, m.sightRadius*tr);
 			  }
+			}*/
+			for each (var v : EntityViewer in viewers)
+			{
+				var nx : Number = (v.entity.x) * tr;
+			 	var ny : Number = (v.entity.y) * tr;
+			 	v.clip.x = nx;
+			 	v.clip.y = ny;
 			}
+		}
+		
+		public function addEntityViewer(viewer:EntityViewer){
+			viewers.push(viewer);
+			addChild(viewer.clip);
 		}
 	}
 }

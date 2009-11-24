@@ -1,5 +1,6 @@
 package com.dungeonizer
 {
+	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -15,10 +16,12 @@ package com.dungeonizer
 		private var _erasing:Boolean;
 		private var _sketchingClip:Shape;
 		private var _dungeon:Dungeon;
+		private var _dungeonViewer:DungeonViewer;
 		private var _map:Map;
 		private var _ui:DrawingCanvasUI;
 		
-		public function DrawingCanvas(dungeon:Dungeon)
+		
+		public function DrawingCanvas(dungeon:Dungeon, viewer:DungeonViewer)
 		{
 			
 			_pointBuffer = new Array();
@@ -27,6 +30,7 @@ package com.dungeonizer
 			_sketchingClip = new Shape();
 			
 			_dungeon = dungeon;
+			_dungeonViewer = viewer;
 			_map = dungeon.map;
 			
 			_ui = new DrawingCanvasUI();
@@ -245,6 +249,9 @@ package com.dungeonizer
 			}
 			var monster:Monster = new Monster(_dungeon.map,mx,my,size);
 			_dungeon.addMonster(monster);
+			var viewerClip:MovieClip = new HeroClip();
+			var viewer:EntityViewer = new EntityViewer(monster,viewerClip);
+			_dungeonViewer.addEntityViewer(viewer);
 			
 		}
 		
