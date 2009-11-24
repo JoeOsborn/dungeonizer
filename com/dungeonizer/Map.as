@@ -2,8 +2,8 @@ package com.dungeonizer
 {
 	public class Map
 	{
-		public const WIDTH:int = 160;
-		public const HEIGHT:int = 120;
+		public static const WIDTH:int = 160;
+		public static const HEIGHT:int = 120;
 		
 		public const WALL:uint = 0;
 		public const FLOOR:uint = 1;
