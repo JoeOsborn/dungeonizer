@@ -1,0 +1,30 @@
+theme: maybe too much freedom.
+
+hero just doesn't feel capable enough -- too floaty perhaps, enemies the wrong sizes, etc.  they should all use box collision.
+
+assign 'monsterness' to arbitrary shapes in bounding boxes.  maybe key by color?
+
+monsters in a toolbox?
+
+numbers that go up on killing monsters, getting princesses, health display
+
+scrolling
+distinguish selected/unselected color
+distinguish functional/aesthetic colors
+
+minimum draw width
+
+smaller avatar
+more to do for dungeoneer and hero
+  keys and doors
+  builtin monsters
+  holes and treasures and monster hives already in the dungeon in various places--static or procedural
+    in this case, monsters could all just exist in hives and dungeoneers wouldn't have to draw them
+  random dungeon events -- earthquakes, etc
+  character creator to give dungeoneer time
+  more points for keeping player close to death, but not dead?
+
+two screens?--cintiq?
+
+things that only the hero can see?
+things that only the dungeoneer can see?
