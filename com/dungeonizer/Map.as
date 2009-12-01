@@ -41,6 +41,18 @@ package com.dungeonizer
 		  }
 		  return cellAt(cy*WIDTH+cx);
 		}
+		
+		/*getting an endless-loop error from this function: 
+		Error: Error #1502: A script has executed for longer than the default timeout period of 15 seconds.
+			at com.dungeonizer::Map/cellAtXY()
+			at com.dungeonizer::Entity/wouldCollideAt()
+			at com.dungeonizer::Entity/preventWallEntrance()
+			at com.dungeonizer::Entity/update()
+			at com.dungeonizer::Monster/update()
+			at com.dungeonizer::Dungeon/updateHandler()
+			at flash.utils::Timer/_timerDispatch()
+			at flash.utils::Timer/tick()
+		*/
 		public function setCellAtXY(cell : uint, cx : int, cy : int) : void 
 		{
 		  if(outOfBounds(cx, cy)) 
