@@ -36,7 +36,8 @@ package com.dungeonizer
 		{
 			super();
 			
-			var cx:Number = 0;
+			var cx:Number = 150;
+			var cy = 18;
 			_buttons = new Array();
 			_activePallet = FLOOR;
 			
@@ -50,61 +51,52 @@ package com.dungeonizer
 			
 			//adding floorbutton
 			_floorButton = new FloorPalletBoxClip();
-			_floorButton.x = cx;
-			addChild(_floorButton);
-			cx += _floorButton.width + SPACER;
 			_buttons[FLOOR] = _floorButton;
-			
-			
+	
 			//adding wallbutton
 			_wallButton = new WallPalletBoxClip();
-			_wallButton.x = cx;
-			addChild(_wallButton);
-			cx += _wallButton.width + SPACER;
 			_buttons[WALL] = _wallButton;
-			
+		
 			//adding monsterButton
 			_monsterButton = new MonsterBoxClip();
-			_monsterButton.x = cx;
-			addChild(_monsterButton);
-			cx += _monsterButton.width + SPACER;
 			_buttons[MONSTER] = _monsterButton;
 			
 			//adding princessButton
 			_princessButton = new PrincessBoxClip();
-			_princessButton.x = cx;
-			addChild(_princessButton);
-			cx += _princessButton.width + SPACER;
 			_buttons[PRINCESS] = _princessButton;
-			
+	
 			//adding redbutton
 			_redButton = new RedPalletBoxClip();
-			_redButton.x = cx;
-			addChild(_redButton);
-			cx += _redButton.width + SPACER;
 			_buttons[RED] = _redButton;
 			
 			//adding greenButton
 			_greenButton = new GreenPalletBoxClip();
-			_greenButton.x = cx;
-			addChild(_greenButton);
-			cx += _greenButton.width + SPACER;
 			_buttons[GREEN] = _greenButton;
-			
+
 			//adding floorbutton
 			_blueButton = new BluePalletBoxClip();
-			_blueButton.x = cx;
-			addChild(_blueButton);
-			cx += _blueButton.width + SPACER;
 			_buttons[BLUE] = _blueButton;
 			
 			//adding floorbutton
 			_blackButton = new BlackPalletBoxClip();
-			_blackButton.x = cx;
-			addChild(_blackButton);
-			cx += _blackButton.width + SPACER;
 			_buttons[BLACK] = _blackButton;
 			
+			
+			
+			//_blackButton.addEventListener(MouseEvent.ROLL_OVER,handleRollOver);
+			//_blackButton.addEventListener(MouseEvent.ROLL_OUT,handleRollOut);
+			
+			for(var i in _buttons){
+				_buttons[i].x = cx;
+				_buttons[i].y = cy;
+				addChild(_buttons[i]);
+				cx += _buttons[i].width + SPACER;
+				
+				_buttons[i].addEventListener(MouseEvent.ROLL_OVER, handleRollOver);
+				_buttons[i].addEventListener(MouseEvent.ROLL_OUT, handleRollOut);
+			}
+			
+			hideAll();
 
 			
 		}
@@ -119,6 +111,8 @@ package com.dungeonizer
 			for(var i in _buttons){
 				if(_buttons[i].hitTestPoint(x,y,true)){
 					_activePallet = i;
+					hideAll();
+					_buttons[_activePallet].alpha = 1;
 					//trace("active: "+_activePallet);
 				}
 			}
@@ -126,6 +120,22 @@ package com.dungeonizer
 		}
 		public function get activePallet():int{
 			return _activePallet;
+		}
+		
+		private function hideAll(){
+			for(var i in _buttons){
+				_buttons[i].alpha = .5;
+			}
+		}
+		
+		private function handleRollOver(ev:MouseEvent){
+			ev.target.alpha = 1;
+		}
+		
+		private function handleRollOut(ev:MouseEvent){
+			if(!(ev.target === _buttons[_activePallet])){
+				ev.target.alpha = .5;
+			}
 		}
 	}
 }
