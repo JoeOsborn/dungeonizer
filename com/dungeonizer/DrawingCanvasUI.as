@@ -15,6 +15,7 @@ package com.dungeonizer
 		public static const BLUE:int = 		6;
 		public static const BLACK:int = 	7;
 		
+		private static const BG_COLOR = 0xEDEDED;
 		
 		public const SPACER:Number = 10;
 		
@@ -31,13 +32,21 @@ package com.dungeonizer
 		
 		private var _activePallet:int;
 		
-		public function DrawingCanvasUI()
+		public function DrawingCanvasUI(barWidth:Number, barHeight:Number)
 		{
 			super();
 			
 			var cx:Number = 0;
 			_buttons = new Array();
 			_activePallet = FLOOR;
+			
+			//draw background
+			graphics.lineStyle(0,0x00000,0);
+			graphics.beginFill(BG_COLOR,1);
+			graphics.lineTo(barWidth,0);
+			graphics.lineTo(barWidth,barHeight);
+			graphics.lineTo(0,barHeight);
+			//graphics.lineTo(0,0);
 			
 			//adding floorbutton
 			_floorButton = new FloorPalletBoxClip();
@@ -101,22 +110,18 @@ package com.dungeonizer
 		}
 		
 		public function handleMouseDown(ev:MouseEvent){
-			var tx = ev.localX - x;
-			var ty = ev.localY - y;
-			activatePallet(tx,ty);
+			activatePallet(ev.stageX,ev.stageY);
 		}
 		
 		private function activatePallet(x:Number,y:Number){
-			var bwidth = width / _buttons.length;
-			_activePallet = int(x /bwidth);
-			
-			/*for(var i in _buttons){
-				trace(_buttons[i]);
+
+			//trace(x+" "+y);
+			for(var i in _buttons){
 				if(_buttons[i].hitTestPoint(x,y,true)){
 					_activePallet = i;
-					trace("active: "+_activePallet);
+					//trace("active: "+_activePallet);
 				}
-			}*/
+			}
 			
 		}
 		public function get activePallet():int{
