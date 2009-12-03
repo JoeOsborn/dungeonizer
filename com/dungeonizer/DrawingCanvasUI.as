@@ -27,7 +27,7 @@ package com.dungeonizer
 		private var _greenButton:MovieClip;
 		private var _blueButton:MovieClip;
 		private var _blackButton:MovieClip;
-		
+			
 		private var _buttons:Array;
 		
 		private var _activePallet:int;
@@ -97,6 +97,8 @@ package com.dungeonizer
 			}
 			
 			hideAll();
+			
+			_floorButton.alpha = 1;
 
 			
 		}
