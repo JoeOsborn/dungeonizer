@@ -9,7 +9,7 @@ package com.dungeonizer{  import flash.display.MovieClip;  import flash.event
 		public function wooedPrincess(ve : VictoryEvent) : void
 		{
 			trace("wooed princess");
-		}				public function playerHit(ev:Event):void{			trace("player hit");
+		}				public function playerHit(ev:Event):void{			updateHealth();
 		}
 	
 		public function addEntityViewer(viewer:EntityViewer, isPlayer:Boolean = false){
